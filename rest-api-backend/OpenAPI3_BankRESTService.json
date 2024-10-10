@@ -1,0 +1,227 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Bank ATM and Branch Information Service",
+      "description": "A service to retrieve ATM and Branch information",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:8080/bank",
+        "description": "Local server"
+      }
+    ],
+    "paths": {
+      "/atms": {
+        "get": {
+          "summary": "Get all ATMs",
+          "operationId": "getAllATMs",
+          "responses": {
+            "200": {
+              "description": "List of ATMs",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ATM"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/branches": {
+        "get": {
+          "summary": "Get all branches",
+          "operationId": "getAllBranches",
+          "responses": {
+            "200": {
+              "description": "List of branches",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Branch"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/atms/{atmId}": {
+        "get": {
+          "summary": "Get ATM by ID",
+          "operationId": "getATMById",
+          "parameters": [
+            {
+              "name": "atmId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The ID of the ATM to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "ATM information",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ATM"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "ATM not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "ATM not found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/branches/{branchId}": {
+        "get": {
+          "summary": "Get Branch by ID",
+          "operationId": "getBranchById",
+          "parameters": [
+            {
+              "name": "branchId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The ID of the branch to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Branch information",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Branch"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Branch not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "Branch not found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "ATM": {
+          "type": "object",
+          "properties": {
+            "AtmId": {
+              "type": "string",
+              "description": "ID of the ATM"
+            },
+            "Location": {
+              "type": "string",
+              "description": "Location of the ATM"
+            },
+            "Address": {
+              "type": "string",
+              "description": "Address of the ATM"
+            },
+            "City": {
+              "type": "string",
+              "description": "City where the ATM is located"
+            },
+            "PostalCode": {
+              "type": "string",
+              "description": "Postal code of the ATM location"
+            },
+            "Country": {
+              "type": "string",
+              "description": "Country of the ATM location"
+            },
+            "Status": {
+              "type": "string",
+              "description": "Operational status of the ATM"
+            }
+          }
+        },
+        "Branch": {
+          "type": "object",
+          "properties": {
+            "BranchId": {
+              "type": "string",
+              "description": "ID of the Branch"
+            },
+            "Name": {
+              "type": "string",
+              "description": "Name of the branch"
+            },
+            "Address": {
+              "type": "string",
+              "description": "Address of the branch"
+            },
+            "City": {
+              "type": "string",
+              "description": "City where the branch is located"
+            },
+            "PostalCode": {
+              "type": "string",
+              "description": "Postal code of the branch location"
+            },
+            "Country": {
+              "type": "string",
+              "description": "Country of the branch location"
+            },
+            "PhoneNumber": {
+              "type": "string",
+              "description": "Phone number of the branch"
+            },
+            "OpeningHours": {
+              "type": "string",
+              "description": "Opening hours of the branch"
+            }
+          }
+        }
+      }
+    }
+  }
+  
