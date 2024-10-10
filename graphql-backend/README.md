@@ -1,3 +1,4 @@
+```
 query {
   atms {
     atmId
@@ -9,7 +10,9 @@ query {
     status
   }
 }
+```
 
+```
 query {
   atm(atmId: "ATM001") {
     atmId
@@ -21,7 +24,9 @@ query {
     status
   }
 }
+```
 
+```
 query {
   branches {
     branchId
@@ -34,7 +39,9 @@ query {
     openingHours
   }
 }
+```
 
+```
 query {
   branch(branchId: "BR001") {
     branchId
@@ -47,3 +54,4 @@ query {
     openingHours
   }
 }
+```
