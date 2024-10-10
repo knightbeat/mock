@@ -1,0 +1,37 @@
+# Define the ATM type with relevant fields
+type ATM {
+  atmId: String!
+  location: String
+  address: String
+  city: String
+  postalCode: String
+  country: String
+  status: String
+}
+
+# Define the Branch type with relevant fields
+type Branch {
+  branchId: String!
+  name: String
+  address: String
+  city: String
+  postalCode: String
+  country: String
+  phoneNumber: String
+  openingHours: String
+}
+
+# Define the root Query type to support the required queries
+type Query {
+  # Query to get a list of all ATMs
+  atms: [ATM]
+
+  # Query to get a specific ATM by ID
+  atm(atmId: String!): ATM
+
+  # Query to get a list of all Branches
+  branches: [Branch]
+
+  # Query to get a specific Branch by ID
+  branch(branchId: String!): Branch
+}

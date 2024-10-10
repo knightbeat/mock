@@ -118,7 +118,7 @@ function getBranchById(string branchId) returns Branch|error {
 }
 
 // Define the GraphQL service
-service /branchlocatorgql on new graphql:Listener(9081) {
+service /bankgraphql on new graphql:Listener(9081) {
 
     // Query for all ATMs
     resource function get atms() returns ATM[] {

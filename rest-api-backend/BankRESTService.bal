@@ -88,7 +88,7 @@ Branch[] branches = [
     }
 ];
 
-service /bank on new http:Listener(9080) {
+service /bankrest on new http:Listener(9080) {
 
     // Endpoint to get the list of ATMs
     resource function get atms(http:Caller caller, http:Request req) returns error? {
