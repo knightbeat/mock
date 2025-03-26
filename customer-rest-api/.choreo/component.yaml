@@ -1,0 +1,13 @@
+schemaVersion: 1.1
+endpoints:
+  - name: customer-rest-api
+    service:
+      port: 8080
+      basePath: /customers
+    type: REST
+    displayName: customer-rest-api
+    networkVisibilities:
+      - Public
+      - Project
+      - Organization
+    schemaFilePath: swagger.yaml
