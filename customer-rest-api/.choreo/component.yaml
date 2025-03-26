@@ -10,4 +10,4 @@ endpoints:
       - Public
       - Project
       - Organization
-    schemaFilePath: swagger.yaml
+    schemaFilePath: customers_openapi.yaml
