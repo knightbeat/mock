@@ -1,0 +1,173 @@
+openapi: 3.0.3
+
+info:
+  title: 5G Edge Traffic Sensor REST API
+  description: >
+    A simple REST API that simulates traffic sensor data produced by
+    5G edge devices. Sensor identity and location can be overridden
+    using query parameters.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Local development
+
+paths:
+  /api/traffic-sensor:
+    get:
+      summary: Get traffic sensor data
+      description: Returns simulated traffic data for a single edge traffic sensor
+      parameters:
+        - name: deviceId
+          in: query
+          description: Unique edge device identifier
+          required: false
+          schema:
+            type: string
+            example: edge-5g-traffic-002
+
+        - name: road
+          in: query
+          description: Road or highway identifier
+          required: false
+          schema:
+            type: string
+            example: M25
+
+        - name: lane
+          in: query
+          description: Lane number on the road
+          required: false
+          schema:
+            type: integer
+            example: 3
+
+        - name: lat
+          in: query
+          description: Latitude of the sensor location
+          required: false
+          schema:
+            type: number
+            format: double
+            example: 51.5098
+
+        - name: lon
+          in: query
+          description: Longitude of the sensor location
+          required: false
+          schema:
+            type: number
+            format: double
+            example: -0.1180
+
+      responses:
+        "200":
+          description: Simulated traffic sensor payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrafficSensorData"
+
+  /health:
+    get:
+      summary: Health check
+      description: Simple liveness probe
+      responses:
+        "200":
+          description: Service is healthy
+
+components:
+  schemas:
+    TrafficSensorData:
+      type: object
+      required:
+        - deviceId
+        - timestamp
+        - location
+        - traffic
+        - network
+      properties:
+        deviceId:
+          type: string
+          description: Edge device identifier
+          example: edge-5g-traffic-001
+
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the data was generated
+          example: "2025-12-17T10:21:12.412Z"
+
+        location:
+          type: object
+          required:
+            - lat
+            - lon
+            - road
+            - lane
+          properties:
+            lat:
+              type: number
+              format: double
+              example: 51.5074
+            lon:
+              type: number
+              format: double
+              example: -0.1278
+            road:
+              type: string
+              example: A501
+            lane:
+              type: integer
+              example: 2
+
+        traffic:
+          type: object
+          required:
+            - vehicleCount
+            - avgSpeedKmph
+            - occupancyPct
+            - vehicles
+          properties:
+            vehicleCount:
+              type: integer
+              example: 18
+            avgSpeedKmph:
+              type: number
+              format: double
+              example: 42.3
+            occupancyPct:
+              type: integer
+              example: 72
+            vehicles:
+              type: object
+              properties:
+                car:
+                  type: integer
+                  example: 14
+                bus:
+                  type: integer
+                  example: 2
+                truck:
+                  type: integer
+                  example: 1
+                bike:
+                  type: integer
+                  example: 1
+
+        network:
+          type: object
+          required:
+            - edge
+            - signalStrengthDbm
+            - latencyMs
+          properties:
+            edge:
+              type: boolean
+              example: true
+            signalStrengthDbm:
+              type: integer
+              example: -72
+            latencyMs:
+              type: integer
+              example: 8
